@@ -142,7 +142,7 @@ export default function ShopPage() {
               { icon: Shield, label: "Secure Payment", desc: "SSL Encrypted" },
               { icon: Package, label: "Fast Dispatch", desc: "Within 24 hours" },
               { icon: CreditCard, label: "Easy Returns", desc: "30-day policy" }
-            ].map((feature, index) => (
+            ].map((feature) => (
               <div
                 key={feature.label}
                 className="flex items-center space-x-3 bg-secondary/50 backdrop-blur-sm border border-accent/20 rounded-lg p-4"
