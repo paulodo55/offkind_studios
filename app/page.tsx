@@ -1,103 +1,318 @@
-import Image from "next/image";
+"use client"
+
+import { SpinningGraphic } from "@/components/spinning-graphic"
+import { motion, useScroll, useTransform } from "framer-motion"
+import Link from "next/link"
+import { useRef } from "react"
+import { 
+  Mic, 
+  Palette, 
+  Video, 
+  Share2, 
+  Calendar, 
+  Compass,
+  ArrowRight,
+  Star,
+  Users,
+  Zap
+} from "lucide-react"
+
+const services = [
+  {
+    icon: Mic,
+    title: "Recording Studio",
+    description: "Professional recording services with state-of-the-art equipment and experienced engineers.",
+    href: "/services#recording"
+  },
+  {
+    icon: Palette,
+    title: "Branding & Visual",
+    description: "Complete visual identity development from logos to album artwork.",
+    href: "/services#branding"
+  },
+  {
+    icon: Video,
+    title: "Video Production",
+    description: "Music videos, documentaries, and visual content that tells your story.",
+    href: "/services#video"
+  },
+  {
+    icon: Share2,
+    title: "Social Media",
+    description: "Content strategy and creation for authentic digital presence.",
+    href: "/services#social"
+  },
+  {
+    icon: Calendar,
+    title: "Event Coordination",
+    description: "From intimate showcases to large-scale productions.",
+    href: "/services#events"
+  },
+  {
+    icon: Compass,
+    title: "Art Direction",
+    description: "Creative consulting to bring your vision to life.",
+    href: "/services#direction"
+  }
+]
+
+const featuredArtists = [
+  {
+    name: "Midnight Oracle",
+    genre: "Experimental Electronic",
+    image: "/api/placeholder/400/400",
+    spotifyUrl: "#"
+  },
+  {
+    name: "The Void Collective",
+    genre: "Post-Punk Revival",
+    image: "/api/placeholder/400/400",
+    spotifyUrl: "#"
+  },
+  {
+    name: "Luna Mystica",
+    genre: "Dark Ambient",
+    image: "/api/placeholder/400/400",
+    spotifyUrl: "#"
+  },
+  {
+    name: "Crimson Sigil",
+    genre: "Industrial Metal",
+    image: "/api/placeholder/400/400",
+    spotifyUrl: "#"
+  }
+]
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  })
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -500])
+
+  return (
+    <div ref={containerRef}>
+      {/* Hero Section with Spinning Graphic */}
+      <SpinningGraphic />
+
+      {/* Services Section */}
+      <section className="py-20 px-4 bg-gradient-to-b from-background to-secondary relative overflow-hidden">
+        <motion.div
+          style={{ y: backgroundY }}
+          className="absolute inset-0 opacity-5"
+        >
+          <div className="absolute top-1/4 right-1/4 text-9xl font-gothic text-accent">☉</div>
+          <div className="absolute bottom-1/4 left-1/3 text-9xl font-gothic text-accent">♃</div>
+        </motion.div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <h2 className="text-5xl md:text-6xl font-gothic text-accent mb-4">
+              Our Sacred Services
+            </h2>
+            <p className="text-xl font-medieval text-muted-foreground max-w-2xl mx-auto">
+              Complete creative solutions for artists who refuse to conform
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service, index) => (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Link href={service.href}>
+                  <div className="group bg-secondary/50 backdrop-blur-sm border border-accent/20 rounded-lg p-6 hover:border-accent/50 transition-all duration-300 hover:shadow-xl hover:shadow-accent/10">
+                    <service.icon className="w-12 h-12 text-accent mb-4 group-hover:animate-pulse-glow" />
+                    <h3 className="text-2xl font-gothic text-accent mb-2">{service.title}</h3>
+                    <p className="text-muted-foreground font-medieval">{service.description}</p>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </section>
+
+      {/* Featured Artists Section */}
+      <section className="py-20 px-4 bg-secondary">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-5xl md:text-6xl font-gothic text-accent mb-4">
+              The Chosen Ones
+            </h2>
+            <p className="text-xl font-medieval text-muted-foreground max-w-2xl mx-auto">
+              Artists who dare to venture beyond the ordinary
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {featuredArtists.map((artist, index) => (
+              <motion.div
+                key={artist.name}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group relative overflow-hidden rounded-lg"
+              >
+                <div className="aspect-square bg-gradient-to-br from-accent/20 to-primary/20 relative">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <h3 className="text-xl font-gothic text-accent">{artist.name}</h3>
+                    <p className="text-sm font-medieval text-muted-foreground">{artist.genre}</p>
+                    <a
+                      href={artist.spotifyUrl}
+                      className="inline-flex items-center mt-2 text-accent hover:text-accent/80 transition-colors"
+                    >
+                      <Music className="w-4 h-4 mr-2" />
+                      Listen Now
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link
+              href="/artists"
+              className="inline-flex items-center px-8 py-3 bg-accent text-secondary font-medieval text-lg rounded-lg hover:bg-accent/90 transition-all btn-alchemic"
+            >
+              View All Artists
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-20 px-4 bg-gradient-to-b from-secondary to-background">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {[
+              { icon: Star, stat: "500+", label: "Projects Completed" },
+              { icon: Users, stat: "200+", label: "Artists Supported" },
+              { icon: Zap, stat: "24/7", label: "Creative Energy" },
+              { icon: Compass, stat: "∞", label: "Genres Welcome" },
+            ].map((item, index) => (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <item.icon className="w-12 h-12 text-accent mx-auto mb-4" />
+                <div className="text-4xl font-gothic text-accent mb-2">{item.stat}</div>
+                <p className="text-sm font-medieval text-muted-foreground">{item.label}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-4 bg-gradient-radial from-accent/10 via-secondary to-secondary">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="max-w-4xl mx-auto text-center"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <h2 className="text-5xl md:text-6xl font-gothic text-accent mb-6 text-shadow-glow">
+            Ready to Create?
+          </h2>
+          <p className="text-xl font-medieval text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Join a collective of artists who refuse to be confined by conventional boundaries
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/contact"
+              className="px-8 py-4 bg-accent text-secondary font-medieval text-lg rounded-lg hover:bg-accent/90 transition-all btn-alchemic"
+            >
+              Book a Session
+            </Link>
+            <Link
+              href="/services"
+              className="px-8 py-4 border-2 border-accent text-accent font-medieval text-lg rounded-lg hover:bg-accent/10 transition-all"
+            >
+              Explore Services
+            </Link>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Community Section */}
+      <section className="py-20 px-4 bg-secondary">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+          >
+            <div>
+              <h2 className="text-5xl md:text-6xl font-gothic text-accent mb-6">
+                Join the Order
+              </h2>
+              <p className="text-lg font-medieval text-muted-foreground mb-6">
+                Off Kind Studios isn't just a creative space—it's a sanctuary for those who dare to be different. 
+                Our community thrives on authentic expression, pushing boundaries, and supporting fellow artists 
+                in their unorthodox journeys.
+              </p>
+              <ul className="space-y-3 mb-8">
+                {[
+                  "Access to exclusive events and workshops",
+                  "Connect with like-minded creative souls",
+                  "Early access to new releases and projects",
+                  "Member-only studio time discounts",
+                  "Creative collaboration opportunities"
+                ].map((item) => (
+                  <li key={item} className="flex items-center text-muted-foreground font-medieval">
+                    <span className="text-accent mr-3">✦</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/community"
+                className="inline-flex items-center px-6 py-3 bg-accent text-secondary font-medieval rounded-lg hover:bg-accent/90 transition-all btn-alchemic"
+              >
+                Enter the Community
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Link>
+            </div>
+            <div className="relative">
+              <div className="aspect-video bg-gradient-to-br from-accent/20 to-primary/20 rounded-lg overflow-hidden">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-accent/20 text-9xl font-gothic animate-spin-slower">☿</div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
     </div>
-  );
+  )
 }
