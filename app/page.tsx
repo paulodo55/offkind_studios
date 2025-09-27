@@ -14,7 +14,8 @@ import {
   ArrowRight,
   Star,
   Users,
-  Zap
+  Zap,
+  Music
 } from "lucide-react"
 
 const services = [
@@ -277,7 +278,7 @@ export default function Home() {
                 Join the Order
               </h2>
               <p className="text-lg font-medieval text-muted-foreground mb-6">
-                Off Kind Studios isn't just a creative space—it's a sanctuary for those who dare to be different. 
+                Off Kind Studios isn&apos;t just a creative space—it&apos;s a sanctuary for those who dare to be different. 
                 Our community thrives on authentic expression, pushing boundaries, and supporting fellow artists 
                 in their unorthodox journeys.
               </p>

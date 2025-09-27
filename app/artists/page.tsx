@@ -9,8 +9,7 @@ import {
   Twitter, 
   Youtube,
   ExternalLink,
-  Play,
-  Filter
+  Play
 } from "lucide-react"
 
 const artists = [
@@ -164,7 +163,7 @@ export default function ArtistsPage() {
             </h1>
             <p className="text-xl font-medieval text-muted-foreground max-w-3xl mx-auto">
               A collective of unorthodox artists who dare to venture beyond conventional boundaries, 
-              creating art that speaks to the soul's darker truths.
+              creating art that speaks to the soul&apos;s darker truths.
             </p>
           </motion.div>
 

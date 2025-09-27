@@ -5,7 +5,6 @@ import { useState } from "react"
 import Link from "next/link"
 import { 
   ShoppingCart, 
-  Filter,
   Star,
   TrendingUp,
   Package,
@@ -107,7 +106,7 @@ export default function ShopPage() {
     ? products
     : products.filter(product => product.category === selectedCategory)
 
-  const addToCart = (productId: number) => {
+  const addToCart = () => {
     setCartCount(prev => prev + 1)
     // In production, this would add to actual cart state/database
   }
@@ -224,7 +223,7 @@ export default function ShopPage() {
                   <div className="aspect-[4/5] bg-gradient-to-br from-accent/20 to-primary/20 relative overflow-hidden">
                     <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                       <button
-                        onClick={() => addToCart(product.id)}
+                        onClick={() => addToCart()}
                         className="px-6 py-2 bg-accent text-secondary font-medieval rounded-lg hover:bg-accent/90 transition-all transform -translate-y-2 group-hover:translate-y-0"
                       >
                         Add to Cart

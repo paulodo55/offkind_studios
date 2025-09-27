@@ -114,7 +114,7 @@ export default function ContactPage() {
               Summon Us
             </h1>
             <p className="text-xl font-medieval text-muted-foreground max-w-3xl mx-auto">
-              Ready to manifest your unorthodox vision? Reach out and let's create something extraordinary together.
+              Ready to manifest your unorthodox vision? Reach out and let&apos;s create something extraordinary together.
             </p>
           </motion.div>
 
@@ -358,7 +358,7 @@ export default function ContactPage() {
               {/* Testimonial */}
               <div className="bg-secondary/50 backdrop-blur-sm border border-accent/20 rounded-lg p-6">
                 <p className="text-sm text-muted-foreground font-medieval italic mb-4">
-                  "Off Kind Studios understood our vision when no one else did. They helped us create something truly unorthodox and authentic."
+                  &quot;Off Kind Studios understood our vision when no one else did. They helped us create something truly unorthodox and authentic.&quot;
                 </p>
                 <p className="text-sm font-gothic text-accent">
                   - Midnight Oracle

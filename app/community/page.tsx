@@ -11,7 +11,6 @@ import {
   Trophy,
   Heart,
   TrendingUp,
-  Clock,
   Star
 } from "lucide-react"
 
